@@ -4,7 +4,6 @@ include_once __DIR__ . "/../helper.php";
 class Database {
     private $conn;
 
-
     public function newConnection() {
         $this->conn = null;
 
