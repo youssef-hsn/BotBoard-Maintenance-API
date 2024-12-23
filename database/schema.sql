@@ -1,18 +1,25 @@
--- device link to apps (who can access the device)
-CREATE TABLE device_apps (
-    device_id VARCHAR(255),
-    app_id INT,
-    PRIMARY KEY (device_id, app_id),
-    FOREIGN KEY (device_id) REFERENCES device(mac_address),
-    FOREIGN KEY (app_id) REFERENCES application(app_id)
+-- App table
+CREATE TABLE application (
+    app_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255),
+    app_secret VARCHAR(255)
 );
 
--- device link to application
-CREATE TABLE device_application (
-    device_mac_address VARCHAR(255),
+-- device table
+CREATE TABLE device (
+    device_id INT AUTO_INCREMENT PRIMARY KEY,
+    mac_address VARCHAR(17),
+    location VARCHAR(255),
+    mother_app INT,
+    FOREIGN KEY (mother_app) REFERENCES application(app_id)
+);
+
+-- device link to apps (who can access the device)
+CREATE TABLE device_apps (
+    device_id INT,
     app_id INT,
-    PRIMARY KEY (device_mac_address, app_id),
-    FOREIGN KEY (device_mac_address) REFERENCES device(mac_address),
+    PRIMARY KEY (device_id, app_id),
+    FOREIGN KEY (device_id) REFERENCES device(device_id),
     FOREIGN KEY (app_id) REFERENCES application(app_id)
 );
 

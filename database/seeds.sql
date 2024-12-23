@@ -18,14 +18,6 @@ INSERT INTO device_apps (device_id, app_id) VALUES
 (2, 3),
 (3, 3);
 
--- Seed data for device_application table
-INSERT INTO device_application (device_mac_address, app_id) VALUES
-('00:1A:C2:7B:00:47', 1),
-('00:1A:C2:7B:00:47', 2),
-('00:1A:C2:7B:00:48', 2),
-('00:1A:C2:7B:00:48', 3),
-('00:1A:C2:7B:00:49', 3);
-
 -- Seed data for routine table
 INSERT INTO routine (routine_id, description, frequency, last_done) VALUES
 (1, 'Routine maintenance for HVAC system', 30, '2024-12-01'),
