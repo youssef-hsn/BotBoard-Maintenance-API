@@ -47,19 +47,11 @@ CREATE TABLE routine_task (
     FOREIGN KEY (task_id) REFERENCES task(task_id)
 );
 
--- logs table
-CREATE TABLE logs (
-    log_id INT AUTO_INCREMENT PRIMARY KEY,
+-- maintenance_history table
+CREATE TABLE maintenance_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
     routine_id INT,
     completed BOOLEAN,
-    FOREIGN KEY (routine_id) REFERENCES routine(routine_id)
-);
-
--- maintenance history table
-CREATE TABLE maintenance_history (
-    maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
-    log_id INT,
-    date DATE,
     note TEXT,
-    FOREIGN KEY (log_id) REFERENCES logs(log_id)
+    FOREIGN KEY (routine_id) REFERENCES routine(routine_id)
 );
