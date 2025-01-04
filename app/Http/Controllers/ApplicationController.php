@@ -20,20 +20,33 @@ class ApplicationController extends Controller
 
     public function update(Request $request)
     {
-        $application = auth()->user();
+        $app = auth()->userOrfail();
 
         $validated = $request->validate([
-            'new_username' => 'required|string',
+            'username' => 'required|string',
         ]);
 
-        $application->update($validated);
+        $app->username = $validated['username'];
+        $app->save();
 
         return response()->json(['message' => 'Application Username updated']);
     }
 
-    public function destroy(Application $application)
+    public function regenerateSecret(Request $request)
     {
-        $application->delete();
+        $app = auth()->userOrfail();
+
+        $app->app_secret = bin2hex(random_bytes(16));
+        $app->save();
+
+        return response()->json(['new_secret' => $application->app_secret]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $app = auth()->userOrfail();
+
+        $app->delete();
 
         return response()->json(['message' => 'Application deleted']);
     }
