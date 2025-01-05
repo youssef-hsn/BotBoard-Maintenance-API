@@ -39,7 +39,7 @@ class ApplicationController extends Controller
         $app->app_secret = bin2hex(random_bytes(16));
         $app->save();
 
-        return response()->json(['new_secret' => $application->app_secret]);
+        return response()->json(['new_secret' => $app->app_secret]);
     }
 
     public function destroy(Request $request)
