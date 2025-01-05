@@ -20,7 +20,6 @@ return new class extends Migration {
     // Create 'device' table
     Schema::create('device', function (Blueprint $table) {
         $table->id('device_id');
-        $table->string('mac_address', 12); // only the characters. No colons or dashes!
         $table->string('location');
         $table->unsignedBigInteger('mother_app')->nullable();
         $table->foreign('mother_app')->references('app_id')->on('application')->onDelete('set null');
