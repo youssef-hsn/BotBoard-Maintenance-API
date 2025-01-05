@@ -20,7 +20,7 @@ return new class extends Migration {
     // Create 'device' table
     Schema::create('device', function (Blueprint $table) {
         $table->id('device_id');
-        $table->string('location');
+        $table->string('description');
         $table->unsignedBigInteger('mother_app')->nullable();
         $table->foreign('mother_app')->references('app_id')->on('application')->onDelete('set null');
         $table->timestamps();

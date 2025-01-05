@@ -17,6 +17,12 @@ class Application extends Model implements JWTSubject {
             $application->app_secret = bin2hex(random_bytes(16));
         });
     }
+
+    public function devices()
+    {
+        return $this->hasMany(Device::class, 'mother_app', 'app_id');
+    }
+
     public function getJWTIdentifier() {
         return $this->getKey(); 
     }
