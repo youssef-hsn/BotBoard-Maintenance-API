@@ -38,10 +38,13 @@ return new class extends Migration {
     // Create 'routine' table
     Schema::create('routine', function (Blueprint $table) {
         $table->id('routine_id');
+        $table->unsignedBigInteger('device_id');
+        $table->string('title');
         $table->text('description');
         $table->integer('frequency');
         $table->date('last_done')->nullable();
         $table->timestamps();
+        $table->foreign('device_id')->references('device_id')->on('device')->onDelete('cascade');
     });
 
     // Create 'task' table
