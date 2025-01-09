@@ -20,6 +20,8 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('/routines')->group(function () {
         Route::get('/all', [RoutineController::class, 'all']);
         Route::get('/{id}', [RoutineController::class, 'show']);
+        Route::put('/{routineID}', [RoutineController::class, 'update']);
+        Route::patch('/{routineID}/done', [RoutineController::class, 'complete']);
     });
     Route::prefix('/devices')->group(function () {
         Route::post('/', [DeviceController::class, 'store']);

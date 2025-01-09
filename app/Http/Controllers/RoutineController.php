@@ -20,7 +20,7 @@ class RoutineController extends Controller
         return response()->json($routines);
     }
 
-    public function store(Request $request,$deviceID)
+    public function store(Request $request, $deviceID)
     {
         $app = auth()->userOrfail();
 
@@ -49,6 +49,45 @@ class RoutineController extends Controller
     public function show(Request $request, $id)
     {
         $routine = Routine::find($id);
+        return response()->json($routine);
+    }
+
+    public function update(Request $request, $routineID)
+    {
+        $app = auth()->userOrfail();
+
+        $routine = Routine::find($routineID);
+
+        if ($routine->device->mother->app_id != $app->app_id) {
+            throw new Exception('Unauthorized');
+        }
+
+        $validated = $request->validate([
+            'title' => 'string|max:32',
+            'description' => 'string|max:255',
+            'frequency' => 'int',
+        ]);
+
+        $routine->title = $validated['title']??$routine->title;
+        $routine->description = $validated['description']??$routine->description;
+        $routine->frequency = $validated['frequency']??$routine->frequency;
+        
+
+        $routine->save();
+        return response()->json($routine);
+    }
+    public function complete(Request $request, $routineID)
+    {
+        $app = auth()->userOrfail();
+
+        $routine = Routine::find($routineID);
+
+        if ($routine->device->mother->app_id != $app->app_id) {
+            throw new Exception('Unauthorized');
+        }
+
+        $routine->last_done = now();
+        $routine->save();
         return response()->json($routine);
     }
 }
